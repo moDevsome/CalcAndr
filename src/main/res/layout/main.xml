@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/calculator_operation_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+            <TextView
+                android:id="@+id/calculator_operation"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:background="@drawable/border"
+                android:paddingRight="20dp"
+
+                android:text=""
+                android:textSize="@dimen/styles.layoutTitle.fontSize"
+                android:textColor="@color/black"
+                android:textAlignment="viewEnd"
+                android:gravity="end"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <!-- Calculator buttons -->
+            <RelativeLayout
+                android:id="@+id/calculator_buttons_group"
+                android:layout_width="match_parent"
+                android:layout_height="290dp"
+                android:layout_marginTop="20dp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <!-- SQUARE / SQUARE ROOT / DELETE / RESET (C) -->
+                <RelativeLayout
+                    android:layout_width="280dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="0dp"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                    <Button
+                        android:id="@+id/calculator_button_carre_locked"
+                        android:text="X²"
+
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberLockedStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_root_locked"
+                        android:text="√"
+
+                        android:layout_marginLeft="73dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberLockedStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_delete_locked"
+                        android:text="⇐"
+                        android:textAlignment="gravity"
+                        android:gravity="center_horizontal"
+
+                        android:layout_marginLeft="143dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberLockedStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_carre"
+                        android:onClick="buttonCalculator"
+                        android:text="X²"
+                        android:visibility="invisible"
+
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_root"
+                        android:onClick="buttonCalculator"
+                        android:text="√"
+                        android:visibility="invisible"
+
+                        android:layout_marginLeft="73dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_delete"
+                        android:onClick="buttonCalculator"
+                        android:text="⇐"
+                        android:visibility="invisible"
+
+                        android:textAlignment="gravity"
+                        android:gravity="center_horizontal"
+
+                        android:layout_marginLeft="143dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_operation_reset"
+                        android:onClick="buttonCalculator"
+                        android:text="C"
+
+                        android:layout_marginLeft="214dp"
+                        android:layout_marginTop="0dp"
+
+                        style="@style/calculatorNumberStyle"
+                        />
+                </RelativeLayout>
+
+                <!-- Buttons 7 / 8 / 9 / and Division -->
+                <RelativeLayout
+                    android:layout_width="280dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="60dp"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                    <Button
+                        android:id="@+id/calculator_button_7"
+                        android:onClick="buttonCalculator"
+                        android:text="7"
+
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_8"
+                        android:onClick="buttonCalculator"
+                        android:text="8"
+
+                        android:layout_marginLeft="73dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_9"
+                        android:onClick="buttonCalculator"
+                        android:text="9"
+
+                        android:layout_marginLeft="143dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_division"
+                        android:onClick="buttonCalculator"
+                        android:text="÷"
+
+                        android:layout_marginLeft="214dp"
+                        android:layout_marginTop="0dp"
+
+                        style="@style/calculatorNumberStyle"
+                        />
+                </RelativeLayout>
+
+                <!-- Buttons 4 / 5 / 6 / and Multiplications -->
+                <RelativeLayout
+                    android:layout_width="280dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="120dp"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                    <Button
+                        android:id="@+id/calculator_button_4"
+                        android:onClick="buttonCalculator"
+                        style="@style/calculatorNumberStyle"
+
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="0dp"
+
+                        android:text="4"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_5"
+                        android:onClick="buttonCalculator"
+                        android:text="5"
+
+                        android:layout_marginLeft="73dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_6"
+                        android:onClick="buttonCalculator"
+                        android:text="6"
+
+                        android:layout_marginLeft="143dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_multiplication"
+                        android:onClick="buttonCalculator"
+                        android:text="X"
+
+                        android:layout_marginLeft="214dp"
+                        android:layout_marginTop="0dp"
+
+                        style="@style/calculatorNumberStyle"
+                        />
+                </RelativeLayout>
+
+                <!-- Buttons 1 / 2 / 3 / and substraction -->
+                <RelativeLayout
+                    android:layout_width="280dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="180dp"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                    <Button
+                        android:id="@+id/calculator_button_1"
+                        android:onClick="buttonCalculator"
+                        style="@style/calculatorNumberStyle"
+
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="0dp"
+                        android:text="1" />
+                    <Button
+                        android:id="@+id/calculator_button_2"
+                        android:onClick="buttonCalculator"
+                        android:text="2"
+
+                        android:layout_marginLeft="73dp"
+                        android:layout_marginTop="0dp"
+
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_3"
+                        android:onClick="buttonCalculator"
+                        android:text="3"
+
+                        android:layout_marginLeft="143dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_soustraction"
+                        android:onClick="buttonCalculator"
+                        android:text="-"
+
+                        android:layout_marginLeft="214dp"
+                        android:layout_marginTop="0dp"
+                        style="@style/calculatorNumberStyle"
+                        />
+                </RelativeLayout>
+
+                <!-- BOUTONS Virgule / 0 / Execution (=) / Addition -->
+                <RelativeLayout
+                    android:layout_width="280dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="240dp"
+
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                    <Button
+                        android:id="@+id/calculator_button_dot"
+                        android:onClick="buttonCalculator"
+                        style="@style/calculatorNumberStyle"
+
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="0dp"
+                        android:text="." />
+                    <Button
+                        android:id="@+id/calculator_button_0"
+                        android:onClick="buttonCalculator"
+                        style="@style/calculatorNumberStyle"
+
+                        android:layout_marginLeft="73dp"
+                        android:layout_marginTop="0dp"
+                        android:text="0" />
+                    <Button
+                        android:id="@+id/calculator_button_execute"
+                        android:onClick="buttonCalculator"
+                        android:text="="
+
+                        android:layout_width="64dp"
+                        android:layout_height="@dimen/calculatorNumberHeight"
+                        android:layout_marginLeft="143dp"
+                        android:layout_marginTop="0dp"
+                        android:backgroundTint="@color/darkOrange"
+                        style="@style/calculatorNumberStyle"
+                        />
+                    <Button
+                        android:id="@+id/calculator_button_addition"
+                        android:onClick="buttonCalculator"
+                        android:text="+"
+
+                        android:layout_marginLeft="214dp"
+                        android:layout_marginTop="0dp"
+
+                        style="@style/calculatorNumberStyle"
+                        />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Open the HISTORY activity -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/open_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="openHistory"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/styles.Buttons.backgroundColor"
+        app:srcCompat="@android:drawable/ic_menu_recent_history" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
