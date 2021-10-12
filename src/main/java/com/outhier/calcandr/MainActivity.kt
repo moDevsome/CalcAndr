@@ -450,8 +450,21 @@ class MainActivity : AppCompatActivity() {
 
         if(this.numbLeft.isNotEmpty() && this.numbRight.isNotEmpty() && this.currentOperator.isNotEmpty()) {
 
-            val numbLeft: Float = this.floatNumb(this.numbLeft);
-            val numbRight: Float = this.floatNumb(this.numbRight);
+            val numbLeft: Float = this.floatNumb(this.numbLeft)
+            val numbRight: Float = this.floatNumb(this.numbRight)
+
+            // @since  1.2.0
+            // Prevent division by 0
+            if(this.currentOperator == "÷" && numbRight.toString() == "0.0") {
+
+                this.utilities.alert(this.getString(R.string.calculator_division_by_zero_error))
+
+                this.numbRight = ""
+                this.currentOperation = this.numbLeft +"÷"
+
+                return this.currentOperation
+
+            }
 
             var result: String = when(this.currentOperator) {
                 "+" -> (numbLeft + numbRight).toString()
