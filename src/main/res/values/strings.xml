@@ -17,7 +17,7 @@
     <string name="calculator_too_many_digit">Le nombre de chiffres dans un segment ne peut pas être supérieur à 10.</string>
     <string name="calculator_too_many_history_records">Le nombre d\'opérations stockées dans l\'historique ne peut pas être supérieur à 1000.</string>
     <string name="calculator_division_by_zero_error">La division par 0 n\'est pas possible.</string>
-    
+
     <!-- History -->
     <string name="history_title">HISTORIQUE DES CALCULS</string>
     <string name="history_button_clear_text">EFFACER</string>
@@ -26,9 +26,11 @@
 
     <!-- About -->
     <string name="about_title">À PROPOS DE CalcandR</string>
-    <string name="about_paragraphe"><![CDATA[<h3>Hello les gens !</h3>
+    <string name="about_subtitle">Hello les gens !</string>
+    <string name="about_paragraphe"><![CDATA[
         <p>CalcAndr est une calculatrice que j\'ai créée dans le cadre de l\'apprentissage du développement Android avec le language Kotlin.</p>
-        <p>&copy; 2021 Mickaël Outhier</p>
+        <p><b>Version courante</b> : NUMVERSION</p>
+        <p>&copy; YEAR Mickaël Outhier</p>
     ]]></string>
     <string name="about_github_button">Voir le projet sur Github</string>
 
