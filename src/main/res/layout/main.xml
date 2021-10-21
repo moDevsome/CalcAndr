@@ -340,17 +340,33 @@
     </LinearLayout>
 
     <!-- Open the HISTORY activity -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/open_history"
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/styles_bottomControls_height"
+        android:backgroundTint="@color/styles.Buttons.backgroundColor"
         android:onClick="openHistory"
 
+        android:text="@string/history_button_label"
+        android:textSize="12sp"
+        android:drawableLeft="@android:drawable/ic_menu_recent_history"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <!-- Hidden floating action button, only used to get the size and vertical position of the floating buttons on the screen -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/hidden_floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/styles.Buttons.backgroundColor"
-        app:srcCompat="@android:drawable/ic_menu_recent_history" />
+        app:srcCompat="@android:drawable/ic_menu_revert" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
