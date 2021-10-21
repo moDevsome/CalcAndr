@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Style du titre du layout -->
+    <!-- Layouts titles style -->
     <dimen name="styles.layoutTitle.marginTop" translatable="false">40dp</dimen>
     <dimen name="styles.layoutTitle.fontSize" translatable="false">28dp</dimen>
     <color name="styles.layoutTitle.fontColor">@color/darkOrange</color>
-
-    <!-- Styles des boutons -->
-    <!-- BackgroundColors from "https://coolors.co/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8" -->
-    <color name="styles.Buttons.backgroundColor" translatable="false">#00B4D8</color>
 
     <!-- Calculator buttons style (unlocked state) -->
     <dimen name="calculatorNumberWidth">64dp</dimen>
@@ -47,7 +43,9 @@
     <!-- Control buttons style -->
     <dimen name="styles_bottomControls_width" translatable="false">180dp</dimen>
     <dimen name="styles_bottomControls_height" translatable="false">50dp</dimen>
+    <!-- BackgroundColors from "https://coolors.co/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8" -->
+    <color name="styles.Buttons.backgroundColor" translatable="false">#00B4D8</color>
 
-    <dimen name="styles_wrapper_marginTop" transtatable="false">20dp</dimen>
+    <dimen name="styles_header3_textSize" translatable="false">48dp</dimen>
 
 </resources>
