@@ -12,15 +12,27 @@
 
 package com.outhier.calcandr
 
+import android.os.Build
+import android.util.DisplayMetrics
+import android.view.Display
+import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.ScrollView
+import androidx.core.view.doOnAttach
+import androidx.core.view.doOnLayout
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.marginLeft
 import java.io.File
 import java.io.IOException
 
+
 class HistoryClass {
 
     private lateinit var wrapper: RelativeLayout
+    private  lateinit var scrollView: View
+
     private lateinit var clearButton: Button
 
     private lateinit var context: MainActivity
@@ -34,7 +46,7 @@ class HistoryClass {
 
             this.historyStream.delete()
 
-        } catch(e: IOException) {
+        } catch (e: IOException) {
 
             this.utilities.traceout(e.message.toString(), "ERROR")
             this.utilities.alert("Sorry, The history could not be deleted yet.")
@@ -83,7 +95,6 @@ class HistoryClass {
 
                 }
 
-
                 this.wrapper.addView(newButton)
                 counter++
 
@@ -93,14 +104,27 @@ class HistoryClass {
 
     }
 
-
     public fun open() {
 
         this.context.setContentView(R.layout.history)
         this.wrapper = this.context.findViewById(R.id.calculator_history_wrapper)
         this.clearButton = this.context.findViewById(R.id.history_delete)
+        this.scrollView = this.context.findViewById(R.id.calculator_history_scrollview)
 
         this.context.supportActionBar?.setTitle(R.string.history_title)
+
+        // @since 1.2
+        // Fit the height of history scrollview
+        this.scrollView.doOnAttach {
+
+            val contextDisplayMetrics: DisplayMetrics = this.context.resources.displayMetrics
+            val actionBarHeight: Int = this.context.supportActionBar?.height.toString().toInt()
+            val bottomHeight: Int = contextDisplayMetrics.heightPixels - this.context.floatingActionButtonMeasureTop
+            val fitHeight = contextDisplayMetrics.heightPixels - (actionBarHeight + bottomHeight)
+
+            this.scrollView.layoutParams.height = fitHeight - ((fitHeight / 100) * 10)
+
+        }
 
         this.fill()
 

@@ -14,12 +14,14 @@ package com.outhier.calcandr
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.text.Html.FROM_HTML_MODE_COMPACT
+import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -31,8 +33,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.fromHtml
+import androidx.core.view.doOnLayout
+import androidx.core.view.doOnPreDraw
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.sqrt
 import kotlin.system.exitProcess
@@ -52,13 +57,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var calculatorFunctionsButtons: MutableList<TextView>
 
+    var floatingActionButtonMeasureTop: Int = 0 // @since 1.2, public var used by the history class to fit the scrollview height
+
+    /** Lock calculator functions depending on the context
+     *
+     * @since  1.0.0
+     * @return void
+     */
     private fun calculatorFunctionsLock() {
 
-        this.utilities.traceout(currentOperation, "INFO")
-
         if(currentOperation.isEmpty()) { // We lock all the functions
-
-            this.utilities.traceout("// We lock all the functions", "INFO")
 
             this.calculatorFunctionsButtons[0].visibility = INVISIBLE
             this.calculatorFunctionsButtons[1].visibility = VISIBLE
@@ -72,8 +80,6 @@ class MainActivity : AppCompatActivity() {
 
             if(this.currentOperator.isNotEmpty()) { // We lock square and root functions
 
-                this.utilities.traceout("// We lock square and root functions", "INFO")
-
                 this.calculatorFunctionsButtons[0].visibility = INVISIBLE
                 this.calculatorFunctionsButtons[1].visibility = VISIBLE
                 this.calculatorFunctionsButtons[2].visibility = INVISIBLE
@@ -81,8 +87,6 @@ class MainActivity : AppCompatActivity() {
 
             }
             else { // We can unlock the function
-
-                this.utilities.traceout("// We can unlock the function", "INFO")
 
                 this.calculatorFunctionsButtons[0].visibility = VISIBLE
                 this.calculatorFunctionsButtons[1].visibility = INVISIBLE
@@ -125,6 +129,15 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.main)
 
+        // @since 1.2
+        // we get the vertical position of the FloatingActionButton for using it when we fit the history scrollview
+        var hiddenFloatingActionButton: View = findViewById(R.id.hidden_floating_action_button)
+        hiddenFloatingActionButton.doOnLayout {
+
+            this.floatingActionButtonMeasureTop = it.top
+
+        }
+
         // @See https://stackoverflow.com/questions/28954445/set-toolbar-title
         this.supportActionBar?.setTitle(R.string.calculator_title)
 
@@ -146,9 +159,17 @@ class MainActivity : AppCompatActivity() {
      */
     public fun openAbout() {
 
+        val packageInfos: PackageInfo = packageManager.getPackageInfo(packageName, 0)
+
         this.setContentView(R.layout.about)
-        var wrapper = this.findViewById<TextView>(R.id.calculator_about_wrapper)
-        wrapper.setText(fromHtml(this.getString(R.string.about_paragraphe), HtmlCompat.FROM_HTML_MODE_LEGACY))
+
+        // @since 1.2
+        // we display the current version informations
+        val lastUpdate: String = SimpleDateFormat("dd/MM/yyyy").format( Date(packageInfos.lastUpdateTime) )
+        val version: String = packageInfos.versionName +" ("+ lastUpdate +")"
+        this.findViewById<TextView>(R.id.calculator_about_wrapper).text = fromHtml(this.getString(R.string.about_paragraphe), HtmlCompat.FROM_HTML_MODE_LEGACY)
+                .replace(Regex("\\b(NUMVERSION)\\b"), version)
+                .replace(Regex("\\b(YEAR)\\b"), lastUpdate.substring(6))
 
         supportActionBar?.setTitle(R.string.about_title)
 
@@ -204,6 +225,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /** Open the Github project page in the device web browser
+     *
+     * @since  1.0.0
+     * @return void
+     */
     public fun goToGithub(view: View) {
 
         // @see https://stackoverflow.com/questions/9932775/easiest-way-to-have-button-open-browser-to-specific-url/18579371
@@ -235,6 +261,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /** Execute square operation
+     *
+     * @since  1.0.0
+     * @return void
+     */
     public fun squareFunction() : String {
 
         this.numbRight = this.numbLeft;
@@ -244,6 +275,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /** Execute square root operation
+     *
+     * @since  1.0.0
+     * @return void
+     */
     public fun squarerootFunction() : String {
 
         var result: String = sqrt(this.floatNumb(this.numbLeft)).toString();
@@ -450,8 +486,21 @@ class MainActivity : AppCompatActivity() {
 
         if(this.numbLeft.isNotEmpty() && this.numbRight.isNotEmpty() && this.currentOperator.isNotEmpty()) {
 
-            val numbLeft: Float = this.floatNumb(this.numbLeft);
-            val numbRight: Float = this.floatNumb(this.numbRight);
+            val numbLeft: Float = this.floatNumb(this.numbLeft)
+            val numbRight: Float = this.floatNumb(this.numbRight)
+
+            // @since  1.2.0
+            // Prevent division by 0
+            if(this.currentOperator == "÷" && numbRight.toString() == "0.0") {
+
+                this.utilities.alert(this.getString(R.string.calculator_division_by_zero_error))
+
+                this.numbRight = ""
+                this.currentOperation = this.numbLeft +"÷"
+
+                return this.currentOperation
+
+            }
 
             var result: String = when(this.currentOperator) {
                 "+" -> (numbLeft + numbRight).toString()
